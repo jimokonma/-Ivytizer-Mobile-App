@@ -17,8 +17,13 @@ import { CartContext } from "../../store/CartContext";
 function HomeHeader(props) {
   const cartContext = useContext(CartContext);
   const navigation = useNavigation();
+  // Side menu
   const openDrawer = () => {
     navigation.openDrawer();
+  };
+  // Navigate to cart
+  const handleNavigateToCart = () => {
+    navigation.navigate("Cart");
   };
   return (
     <View style={styles.container}>
@@ -29,14 +34,16 @@ function HomeHeader(props) {
             style={styles.profileImage}
           />
         </Pressable>
-        <View style={styles.cartIcon}>
-          <View style={cartContext.ids.length > 0 && styles.cartItems}>
-            {cartContext.ids.length > 0 && (
-              <Text style={{ color: "#fff" }}>{cartContext.ids.length}</Text>
-            )}
+        <Pressable onPress={handleNavigateToCart}>
+          <View style={styles.cartIcon}>
+            <View style={cartContext.ids.length > 0 && styles.cartItems}>
+              {cartContext.ids.length > 0 && (
+                <Text style={{ color: "#fff" }}>{cartContext.ids.length}</Text>
+              )}
+            </View>
+            <FontAwesome name="shopping-cart" size={20} color="black" />
           </View>
-          <FontAwesome name="shopping-cart" size={20} color="black" />
-        </View>
+        </Pressable>
       </View>
       <View style={styles.searchContainer}>
         <FontAwesome name="search" size={24} color={Colors.PrimaryRed800} />

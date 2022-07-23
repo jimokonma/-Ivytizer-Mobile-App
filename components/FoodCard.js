@@ -8,11 +8,9 @@ import { Colors } from "./ui/Colors";
 // Context Stores
 import { FavContext } from "../store/FavoriteContext";
 import { CartContext } from "../store/CartContext";
+import Ratings from "./Ratings";
 
 function FoodCard({ data }) {
-  // Rating logic
-  const maxRating = 5;
-  const remaingStars = maxRating - data.rating;
   // Context Initialization
   const favContext = useContext(FavContext);
   const cartContext = useContext(CartContext);
@@ -69,26 +67,7 @@ function FoodCard({ data }) {
         <View style={styles.detailsContainer}>
           <Text style={styles.title}>{data.title}</Text>
           <Text style={styles.ingredents}>{data.ingredents}</Text>
-          <View style={styles.rating}>
-            {[...Array(remaingStars)].map((item, index) => (
-              <FontAwesome
-                name="star"
-                size={15}
-                color="black"
-                key={index}
-                style={styles.goldStar}
-              />
-            ))}
-            {[...Array(data.rating)].map((item, index) => (
-              <FontAwesome
-                name="star"
-                size={15}
-                color="black"
-                key={index}
-                style={styles.grayStar}
-              />
-            ))}
-          </View>
+          <Ratings rating={data.rating} />
           <Text style={styles.title}>
             N {data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </Text>
@@ -131,15 +110,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 6,
     borderRadius: 25,
-  },
-  rating: {
-    flexDirection: "row",
-  },
-  grayStar: {
-    color: "#C4C4C4",
-  },
-  goldStar: {
-    color: "#F4900C",
   },
   detailsContainer: {
     flex: 1,

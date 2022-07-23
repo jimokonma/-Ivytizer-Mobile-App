@@ -1,7 +1,7 @@
 import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../ui/Colors";
 
-function PrimaryButton({ children, onPress }) {
+function SmallButton({ children, onPress }) {
   return (
     <View style={styles.buttonContainer}>
       <Pressable
@@ -19,6 +19,8 @@ function PrimaryButton({ children, onPress }) {
 
 const styles = StyleSheet.create({
   buttonContainer: {
+    width: 25,
+    height: 25,
     backgroundColor: Colors.PrimaryRed800,
     borderRadius: 3,
     overflow: "hidden",
@@ -36,4 +38,4 @@ const styles = StyleSheet.create({
     opacity: Platform.OS === "ios" ? 0.25 : 1,
   },
 });
-export default PrimaryButton;
+export default SmallButton;

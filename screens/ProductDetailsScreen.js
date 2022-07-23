@@ -10,15 +10,12 @@ import { Colors } from "../components/ui/Colors";
 import FoodData from "../data/foodData";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import { CartContext } from "../store/CartContext";
+import Ratings from "../components/Ratings";
 
 function ProductDetailsScreen({ route, navigation }) {
   const mealId = route.params.mealId;
 
   const displayMeal = FoodData.find((meal) => meal.id === mealId);
-
-  // Rating logic
-  const maxRating = 5;
-  const remaingStars = maxRating - displayMeal.rating;
 
   // Use Context
   const favContext = useContext(FavContext);
@@ -79,26 +76,7 @@ function ProductDetailsScreen({ route, navigation }) {
         <View style={styles.mealDetails}>
           <View>
             <Text style={styles.title}>{displayMeal.title}</Text>
-            <View style={styles.rating}>
-              {[...Array(remaingStars)].map((item, index) => (
-                <FontAwesome
-                  name="star"
-                  size={15}
-                  color="black"
-                  key={index}
-                  style={styles.goldStar}
-                />
-              ))}
-              {[...Array(displayMeal.rating)].map((item, index) => (
-                <FontAwesome
-                  name="star"
-                  size={15}
-                  color="black"
-                  key={index}
-                  style={styles.grayStar}
-                />
-              ))}
-            </View>
+            <Ratings rating={displayMeal.rating} />
           </View>
           <View>
             <Text style={styles.price}>
@@ -177,6 +155,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 15,
     fontWeight: "bold",
+    marginVertical: 10,
   },
   price: {
     fontSize: 24,

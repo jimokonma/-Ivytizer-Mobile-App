@@ -9,9 +9,11 @@ import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
 import VerifyEmailScreen from "./screens/VerifyEmailScreen";
+import CartScreen from "./screens/CartScreen";
 // Context
 import FavContextProvider from "./store/FavoriteContext";
 import CartContextProvider from "./store/CartContext";
+
 // Components
 import HomeHeader from "./components/headers/HomeHeader";
 
@@ -113,6 +115,7 @@ export default function App() {
                   headerShown: false,
                 }}
               />
+              <Stack.Screen name="Cart" component={CartScreen} />
             </Stack.Navigator>
           </NavigationContainer>
         </FavContextProvider>
