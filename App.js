@@ -9,11 +9,15 @@ import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
 import VerifyEmailScreen from "./screens/VerifyEmailScreen";
-
+// Context
+import FavContextProvider from "./store/FavoriteContext";
+import CartContextProvider from "./store/CartContext";
 // Components
 import HomeHeader from "./components/headers/HomeHeader";
+
 // UI elements
 import { Colors } from "./components/ui/Colors";
+import ProductDetailsScreen from "./screens/ProductDetailsScreen";
 
 const MyTheme = {
   ...DefaultTheme,
@@ -50,56 +54,69 @@ const DrwerNavigator = () => {
 
 export default function App() {
   return (
-    <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Slides"
-          component={SlidesScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUpScreen}
-          options={{
-            headerLeft: null,
-            headerTitleAlign: "center",
-          }}
-        />
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{
-            headerLeft: null,
-            headerTitleAlign: "center",
-          }}
-        />
-        <Stack.Screen
-          name="ForgotPassword"
-          component={ForgotPasswordScreen}
-          options={{
-            title: "Forgot Password",
-            headerTitleAlign: "center",
-          }}
-        />
-        <Stack.Screen
-          name="VerifyEmail"
-          component={VerifyEmailScreen}
-          options={{
-            title: "Verify your Email",
-            headerTitleAlign: "center",
-          }}
-        />
-        {/* Main App Screen */}
-        <Stack.Screen
-          name="MainApp"
-          component={DrwerNavigator}
-          options={{
-            title: null,
-            headerTitle: null,
-            headerShown: false,
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <CartContextProvider>
+        <FavContextProvider>
+          <NavigationContainer theme={MyTheme}>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Slides"
+                component={SlidesScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="SignUp"
+                component={SignUpScreen}
+                options={{
+                  headerLeft: null,
+                  headerTitleAlign: "center",
+                }}
+              />
+              <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{
+                  headerLeft: null,
+                  headerTitleAlign: "center",
+                }}
+              />
+              <Stack.Screen
+                name="ForgotPassword"
+                component={ForgotPasswordScreen}
+                options={{
+                  title: "Forgot Password",
+                  headerTitleAlign: "center",
+                }}
+              />
+              <Stack.Screen
+                name="VerifyEmail"
+                component={VerifyEmailScreen}
+                options={{
+                  title: "Verify your Email",
+                  headerTitleAlign: "center",
+                }}
+              />
+              {/* Main App Screen */}
+              <Stack.Screen
+                name="MainApp"
+                component={DrwerNavigator}
+                options={{
+                  title: null,
+                  headerTitle: null,
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="ProductDetails"
+                component={ProductDetailsScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </FavContextProvider>
+      </CartContextProvider>
+    </>
   );
 }

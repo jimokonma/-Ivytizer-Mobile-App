@@ -1,21 +1,60 @@
 import { Image, StyleSheet, Text, Pressable, View } from "react-native";
+import { useContext } from "react";
 import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 // Components
 import SmallButton from "../components/ui/PrimaryButton";
 import { Colors } from "./ui/Colors";
+// Context Stores
+import { FavContext } from "../store/FavoriteContext";
+import { CartContext } from "../store/CartContext";
 
-function FoodCard({ data, navigation, handleLike }) {
+function FoodCard({ data }) {
+  // Rating logic
   const maxRating = 5;
   const remaingStars = maxRating - data.rating;
+  // Context Initialization
+  const favContext = useContext(FavContext);
+  const cartContext = useContext(CartContext);
+
+  // navigate to product details screen
+  const navigation = useNavigation();
+  const navigateToProductDetails = () => {
+    return navigation.navigate("ProductDetails", {
+      mealId: data.id,
+    });
+  };
+  // Handle favorite meals
+  // Check if the meal is available in the favorites list
+  const mealIsInFav = favContext.ids.includes(data.id);
+  // Add or Remove items from the favourite list
+  const handleFavorites = (id) => {
+    if (mealIsInFav) {
+      favContext.removeFav(id);
+    } else {
+      return favContext.addFav(id);
+    }
+  };
+  // Handle Cart Items
+  // Check if the meal is available in the cart
+  const itemIsInCart = cartContext.ids.includes(data.id);
+  // Add or Remove items from the cart
+  const handleCartItems = (id) => {
+    if (itemIsInCart) {
+      cartContext.removeFromCart(id);
+    } else {
+      cartContext.addToCart(id);
+    }
+  };
   return (
-    <Pressable>
+    <Pressable onPress={navigateToProductDetails}>
       <View style={styles.cardContainer}>
         <View style={styles.imageContainer}>
           <Image source={{ uri: data.image }} style={styles.image} />
 
           <View style={styles.likesHolder}>
-            <Pressable onPress={() => handleLike(data.id)}>
-              {data.like ? (
+            <Pressable onPress={() => handleFavorites(data.id)}>
+              {mealIsInFav ? (
                 <FontAwesome
                   name="heart"
                   size={10}
@@ -55,8 +94,12 @@ function FoodCard({ data, navigation, handleLike }) {
           </Text>
         </View>
         <View style={styles.addToCartContainer}>
-          <SmallButton>
-            <FontAwesome name="plus" size={10} color="#fff" />
+          <SmallButton onPress={() => handleCartItems(data.id)}>
+            <FontAwesome
+              name={itemIsInCart ? "minus" : "plus"}
+              size={10}
+              color="#fff"
+            />
           </SmallButton>
         </View>
       </View>

@@ -8,9 +8,14 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
+// UI elements
 import { Colors } from "../ui/Colors";
+import { useContext } from "react";
+import { CartContext } from "../../store/CartContext";
+//
 
 function HomeHeader(props) {
+  const cartContext = useContext(CartContext);
   const navigation = useNavigation();
   const openDrawer = () => {
     navigation.openDrawer();
@@ -24,13 +29,14 @@ function HomeHeader(props) {
             style={styles.profileImage}
           />
         </Pressable>
-
-        <FontAwesome
-          name="shopping-cart"
-          size={20}
-          color="black"
-          style={styles.cartIcon}
-        />
+        <View style={styles.cartIcon}>
+          <View style={cartContext.ids.length > 0 && styles.cartItems}>
+            {cartContext.ids.length > 0 && (
+              <Text style={{ color: "#fff" }}>{cartContext.ids.length}</Text>
+            )}
+          </View>
+          <FontAwesome name="shopping-cart" size={20} color="black" />
+        </View>
       </View>
       <View style={styles.searchContainer}>
         <FontAwesome name="search" size={24} color={Colors.PrimaryRed800} />
@@ -84,6 +90,19 @@ const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: "#fff",
     borderRadius: 25,
+  },
+  cartItems: {
+    position: "absolute",
+    width: 25,
+    height: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 25,
+    zIndex: 99,
+    right: 10,
+    top: -5,
+    fontWeight: "bold",
+    backgroundColor: Colors.PrimaryRed700,
   },
   searchContainer: {
     width: "100%",
