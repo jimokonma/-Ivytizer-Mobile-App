@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonInnerContainer: {
-    flex: 1,
+    width: 25,
+    height: 25,
     alignItems: "center",
     justifyContent: "center",
   },

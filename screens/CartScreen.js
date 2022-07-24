@@ -3,7 +3,7 @@ import { FlatList, Text, StyleSheet, View } from "react-native";
 import { CartContext } from "../store/CartContext";
 import FoodData from "../data/foodData";
 import CartItem from "../components/CartItem";
-import PrimaryButton from "../components/ui/SmallButton";
+import PrimaryButton from "../components/ui/PrimaryButton";
 
 function CartScreen(props) {
   const cartContext = useContext(CartContext);
@@ -58,13 +58,13 @@ function CartScreen(props) {
               borderBottomWidth: StyleSheet.hairlineWidth,
             }}
           />
-          <View style={styles.summaryRow}>
+          <View style={[styles.summaryRow, { marginBottom: 20 }]}>
             <Text>Grand Total</Text>
             <Text>
               N {grandTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </Text>
           </View>
-          <View style={styles.summaryRow}></View>
+          <PrimaryButton>Checkout</PrimaryButton>
         </View>
       </>
     ) : (

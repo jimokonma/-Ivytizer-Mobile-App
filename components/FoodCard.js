@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 // Components
-import SmallButton from "../components/ui/PrimaryButton";
+import SmallButton from "../components/ui/SmallButton";
 import { Colors } from "./ui/Colors";
 // Context Stores
 import { FavContext } from "../store/FavoriteContext";
